@@ -1,6 +1,5 @@
 const errors = require('../const/error')
 
-
 module.exports = function (err, req, res, next) {
 
   let response = {
