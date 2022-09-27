@@ -1,39 +1,62 @@
+const models = require('../database/models/index')
+const errors = require('../const/error')
 
 module.exports = {
 
-    pacientes:async( req , res)  => {
-        try{
-            console.log('ejecutando /pacientes')
+    getPacientes:async( req , res)  => {
+        try {
+            const pacientes = await models.paciente.findAll()
 
             res.json({
-                message: "Listado de pacientes"
+                success: true,
+                data: {
+                    pacientes: pacientes
+                }
             })
-        }catch(e){
-            console.log(e)
+
+        } catch (err) {
+            return next(err)
         }
     },
      
-    paciente:async( req , res)  => {
-        try{
-            console.log('ejecutando /paciente')
+    getPaciente:async( req , res,next)  => {
+        try {
+            const paciente = await models.paciente.findOne({
+                where: {
+                    id: req.params.idPaciente
+                },
+                include:[{
+                    model:models.medico
+                }]
+            }) 
+            
+            if(!paciente) return next(errors.PacienteInexistente)
 
             res.json({
-                message: "Información del paciente 1 "
+                success: true,
+                data: {
+                    paciente: paciente
+                }
             })
-        }catch(e){
-            console.log(e)
+
+        } catch (err) {
+            return next(err)
         }
     }, 
 
-    crear:async( req , res)  => {
-        try{
-            console.log('ejecutando crear')
+    crearPaciente:async( req , res,next)  => {
+        try {
+            const paciente = await models.paciente.create(req.body)
 
             res.json({
-                message: "Creacion paciente "
+                success: true,
+                data: {
+                    id: paciente.id
+                }
             })
-        }catch(e){
-            console.log(e)
+
+        } catch (err) {
+            return next(err)
         }
     }, 
 
