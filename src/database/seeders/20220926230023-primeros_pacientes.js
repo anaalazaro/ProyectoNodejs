@@ -1,5 +1,6 @@
 'use strict';
 const models = require('../models/index')
+const bcrypt = require('bcryptjs')
 
 module.exports = {
  up:  function (queryInterface, Sequelize) {
@@ -15,7 +16,8 @@ module.exports = {
           email:"Lucas@prueba.com",
           edad:"30",
           direccion:"calle falsa 1234",
-          medicoId: 2
+          medicoId: 2,
+          password: bcrypt.hashSync('password',10)
         }
       }),
       models.paciente.findOrCreate({
@@ -28,7 +30,8 @@ module.exports = {
           email:"Analia@prueba.com",
           edad:"20",
           direccion:"calle 1200",
-          medicoId: 1
+          medicoId: 1,
+          password: bcrypt.hashSync('password',10)
         }
       }),
       models.paciente.findOrCreate({
@@ -41,7 +44,8 @@ module.exports = {
           email:"Mia@prueba.com",
           edad:"34",
           direccion:"calle falsa 1234",
-          medicoId: 2
+          medicoId: 2,
+          password: bcrypt.hashSync('password',10)
         }
       })
     ]

@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
+    password:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     createdAt: { // fecha de creacion
       type: DataTypes.DATE, // tipo de dato
       field: 'created_at', // nombre de la columna
@@ -51,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
   Paciente.associate = models => {
     // aca se relacionan las tablas de la base de datos
     Paciente.belongsTo(models.medico)  
+    Paciente.hasMany(models.archivo_paciente) // un pacientetiene muchos archivos
   }
 
   return Paciente

@@ -8,6 +8,7 @@ let crearPaciente = Joi.object({
     email: Joi.string().email().optional(),
     edad: Joi.number().optional(),
     direccion:Joi.string().optional(),
+    password: Joi.string().required(),
 })
 
 module.exports = {

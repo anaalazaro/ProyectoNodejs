@@ -3,7 +3,7 @@ const errors = require('../const/error')
 
 module.exports = {
 
-    getMedicos:async( req , res)  => {
+    getMedicos:async( req , res,  next)  => {
         try {
             const medicos = await models.medico.findAll()
 
@@ -40,7 +40,7 @@ module.exports = {
             return next(err)
         }
     }, 
-    crearMedico:async( req , res)  => {
+    crearMedico:async( req , res, next)  => {
         try {
             const medico = await models.medico.create(req.body)
 
